@@ -514,6 +514,16 @@ statuses@~1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.4.0.tgz#bb73d446da2796106efcc1b601a253d6c46bd087"
 
+stream-chain@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/stream-chain/-/stream-chain-2.0.3.tgz#9155237a719c8bb2de883c2d1af66d1546f910c9"
+
+stream-json@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/stream-json/-/stream-json-1.1.0.tgz#0a91e84e3cfb017f2446d9023025694982c99e89"
+  dependencies:
+    stream-chain "^2.0.3"
+
 transformers@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/transformers/-/transformers-2.1.0.tgz#5d23cb35561dd85dc67fb8482309b47d53cce9a7"
