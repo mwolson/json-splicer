@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+require('../lib/config')
 var app = require('../lib/app');
 var debug = require('debug')('json-splicer:server');
 var http = require('http');

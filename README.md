@@ -2,17 +2,78 @@
 
 Exploratory work on parsing JSON fast and potentially streaming it.
 
-## Usage
+## Setup
 
-Install wrk, yarn, and node modules. Start the server.
+Install wrk, yarn, and node modules.
 
 ```sh
 brew install wrk
 brew install yarn
 cd json-slicer
 yarn
+```
+
+Create a `.env` file with the following contents:
+
+```
+ISMDS_APIKEY=your_api_key
+ISMDS_APISECRET=your_api_secret
+ISMDS_URL=http://services-url/api/ismds
+```
+
+## Usage
+
+Start the server.
+
+```sh
 yarn run start
 ```
+
+## wrk Examples
+
+### Service Calls
+
+wrk results where we stream the data response chunks from a facets call to stream-json
+
+```sh
+$ wrk --latency -t 1 -d 10s -c 10 http://localhost:3000/ismds/stream-json/stream/facets/3F005359ACB33C1D
+Running 10s test @ http://localhost:3000/ismds/stream-json/stream/facets/3F005359ACB33C1D
+  1 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   743.27ms  302.79ms   1.71s    66.20%
+    Req/Sec    12.43      5.57    20.00     69.57%
+  Latency Distribution
+     50%  745.39ms
+     75%  905.05ms
+     90%    1.11s
+     99%    1.71s
+  83 requests in 10.02s, 1.80MB read
+  Socket errors: connect 0, read 0, write 0, timeout 12
+Requests/sec:      8.28
+Transfer/sec:    184.15KB
+```
+
+wrk results where we wait for a facets call to complete, then send to stream-json
+
+```sh
+$ wrk --latency -t 1 -d 10s -c 10 http://localhost:3000/ismds/stream-json/await/facets/3F005359ACB33C1D
+Running 10s test @ http://localhost:3000/ismds/stream-json/await/facets/3F005359ACB33C1D
+  1 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.15s   143.78ms   1.22s    98.04%
+    Req/Sec     6.57      2.51     8.00     71.43%
+  Latency Distribution
+     50%    1.17s
+     75%    1.20s
+     90%    1.21s
+     99%    1.22s
+  61 requests in 10.06s, 1.28MB read
+  Socket errors: connect 0, read 0, write 0, timeout 10
+Requests/sec:      6.07
+Transfer/sec:    130.68KB
+```
+
+### Local String
 
 wrk results for sending facets as a raw unparsed string
 
